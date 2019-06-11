@@ -14,7 +14,7 @@ public class RoleService {
     }
 
     public Role getUserRole() throws Exception{
-        return roleRepository.getRoleByName("ROLE_USER")
+        return roleRepository.findRoleByName("ROLE_USER")
                 .orElseThrow(()-> new Exception("Nie znaleziono roli użytkownika"));
     }
 }
