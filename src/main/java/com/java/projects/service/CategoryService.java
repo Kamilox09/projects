@@ -4,6 +4,7 @@ import com.java.projects.model.Category;
 import com.java.projects.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class CategoryService {
 
@@ -15,6 +16,6 @@ public class CategoryService {
 
     public Category getOrCreateCategory(Category category){
         return categoryRepository.findCategoryByNameIgnoreCase(category.getName())
-                .orElse(categoryRepository.save(category));
+                .orElseGet(() -> categoryRepository.save(category));
     }
 }
