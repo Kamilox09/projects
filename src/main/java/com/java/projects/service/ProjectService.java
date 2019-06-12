@@ -33,6 +33,10 @@ public class ProjectService {
         return projectRepository.getPageByCategoryName(name, pageable);
     }
 
+    public Page<Project> getPageOfProjects(Pageable pageable){
+        return projectRepository.findAll(pageable);
+    }
+
     private List<Category> fetchCategories(Project project) {
         return project.getCategories()
                 .stream()

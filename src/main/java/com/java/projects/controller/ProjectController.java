@@ -27,9 +27,12 @@ public class ProjectController {
     }
 
     @GetMapping("/project")
-    public ResponseEntity<Page<ProjectDto>> getPageOfProjectsByCategoryName(@RequestParam("category") String category,
+    public ResponseEntity<Page<ProjectDto>> getPageOfProjects(@RequestParam(value ="category", required = false) String category,
                                                                             Pageable pageable){
-        return new ResponseEntity<>(projectService.getPageOfProjectsByCategoryName(category, pageable).map(Mapper::mapToDto), HttpStatus.OK);
+        if(category!=null)
+            return new ResponseEntity<>(projectService.getPageOfProjectsByCategoryName(category, pageable).map(Mapper::mapToDto), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(projectService.getPageOfProjects(pageable).map(Mapper::mapToDto), HttpStatus.OK);
 
     }
 }
