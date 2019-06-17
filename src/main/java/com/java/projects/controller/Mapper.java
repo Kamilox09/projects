@@ -1,9 +1,12 @@
 package com.java.projects.controller;
 
 import com.java.projects.dto.CategoryDto;
+import com.java.projects.dto.NewUserDto;
 import com.java.projects.dto.ProjectDto;
+import com.java.projects.dto.UserDto;
 import com.java.projects.model.Category;
 import com.java.projects.model.Project;
+import com.java.projects.model.User;
 
 import java.util.stream.Collectors;
 
@@ -47,6 +50,22 @@ public class Mapper {
         .stream()
         .map(Mapper::mapToDto)
         .collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    public static User mapToEntity(NewUserDto dto) {
+        User user = new User();
+        user.setUsername(dto.getUsername());
+        user.setPassword(dto.getPassword());
+        return user;
+    }
+
+    public static UserDto maptoDto(User entity) {
+        UserDto dto = new UserDto();
+        dto.setId(entity.getId());
+        dto.setUsername(entity.getUsername());
+        dto.setRole(entity.getRole().getName());
 
         return dto;
     }

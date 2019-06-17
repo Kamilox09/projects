@@ -8,12 +8,22 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RoleService roleService;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository,
+                       RoleService roleService){
         this.userRepository = userRepository;
+        this.roleService = roleService;
     }
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public void registerUser(User user) throws Exception{
+        if(userRepository.existsByUsername(user.getUsername()))
+            throw new Exception("Nazwa użytkownika zajęta.");
+        user.setRole(roleService.getUserRole());
+        userRepository.save(user);
     }
 }
