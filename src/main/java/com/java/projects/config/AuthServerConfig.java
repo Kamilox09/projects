@@ -13,23 +13,19 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
-import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    public AuthServerConfig(DataSource dataSource,
-                               AuthenticationManager authenticationManager,
+    public AuthServerConfig(AuthenticationManager authenticationManager,
                                PasswordEncoder passwordEncoder,
                                UserDetailsServiceImpl userDetailsService){
-        this.dataSource = dataSource;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
@@ -49,8 +45,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .tokenStore(tokenStore())
-                .authenticationManager(authenticationManager);
-                //.userDetailsService(userDetailsService);
+                .authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService);
 
     }
 
@@ -58,8 +54,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
-                .withClient("frontendClientId")
-                .secret(passwordEncoder.encode("frontendClientSecret"))
+                .withClient("clientId")
+                .secret(passwordEncoder.encode("clientSecret"))
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .accessTokenValiditySeconds(3600)
                 .refreshTokenValiditySeconds(28*24*3600)
