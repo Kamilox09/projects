@@ -25,6 +25,7 @@ public class ProjectService {
     public void addProject(Project project){
         List<Category> categoryList = fetchCategories(project);
         project.setCategories(categoryList);
+        project.setAvailableReservations(5);
         projectRepository.save(project);
 
     }

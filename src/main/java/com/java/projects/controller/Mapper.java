@@ -31,6 +31,7 @@ public class Mapper {
         entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
+        entity.setAvailableReservations(dto.getAvailableReservations());
 
         entity.setCategories(dto.getCategories()
         .stream()
@@ -45,6 +46,7 @@ public class Mapper {
         dto.setId(project.getId());
         dto.setTitle(project.getTitle());
         dto.setDescription(project.getDescription());
+        dto.setAvailableReservations(project.getAvailableReservations());
 
         dto.setCategories(project.getCategories()
         .stream()

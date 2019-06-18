@@ -14,6 +14,8 @@ public class ProjectDto {
     @NotBlank
     private String description;
 
+    private Integer availableReservations;
+
     @NotNull
     private List<CategoryDto> categories;
 
@@ -47,5 +49,13 @@ public class ProjectDto {
 
     public void setCategories(List<CategoryDto> categories) {
         this.categories = categories;
+    }
+
+    public Integer getAvailableReservations() {
+        return availableReservations;
+    }
+
+    public void setAvailableReservations(Integer availableReservations) {
+        this.availableReservations = availableReservations;
     }
 }
