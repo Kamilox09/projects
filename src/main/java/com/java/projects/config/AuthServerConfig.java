@@ -57,7 +57,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .withClient("clientId")
                 .secret(passwordEncoder.encode("clientSecret"))
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
-                .accessTokenValiditySeconds(3600)
+                .accessTokenValiditySeconds(86400)
                 .refreshTokenValiditySeconds(28*24*3600)
                 .scopes("read");
 
