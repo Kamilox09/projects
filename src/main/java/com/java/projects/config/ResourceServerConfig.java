@@ -14,12 +14,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/oauth/**", "/api/user/register")
+                    .antMatchers("/oauth/**", "/api/user/register", "/api/test")
                     .permitAll()
-//                .antMatchers(HttpMethod.POST, "/user/employee")
-//                .hasRole("ADMIN")
-//                .antMatchers("/user/changepassword/**", "/current/id")
-//                .hasAnyRole("ADMIN", "EMPLOYEE", "USER")
+                .antMatchers( "/api/user/current")
+                .hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.POST, "/api/project")
+                .hasRole("ADMIN")
                     .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
