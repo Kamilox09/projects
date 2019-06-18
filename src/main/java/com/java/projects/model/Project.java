@@ -16,6 +16,8 @@ public class Project {
     @Column(nullable = false)
     private String description;
 
+    private Integer availableReservations;
+
     @OneToMany(mappedBy = "project")
     private List<User> users;
 
@@ -65,5 +67,13 @@ public class Project {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public Integer getAvailableReservations() {
+        return availableReservations;
+    }
+
+    public void setAvailableReservations(Integer availableReservations) {
+        this.availableReservations = availableReservations;
     }
 }
