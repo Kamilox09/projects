@@ -13,17 +13,12 @@ public class UserDetailsImpl implements UserDetails {
     private User user;
 
     public UserDetailsImpl(User user){
-        this.user = this.user;
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        GrantedAuthority authority = new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return user.getRole().getName();
-            }
-        };
+        GrantedAuthority authority = (GrantedAuthority) () -> user.getRole().getName();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(authority);

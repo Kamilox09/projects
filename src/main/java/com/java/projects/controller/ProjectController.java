@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 public class ProjectController {
@@ -20,7 +22,7 @@ public class ProjectController {
     }
 
     @PostMapping("/project")
-    public ResponseEntity<ProjectDto> addProject(@RequestBody ProjectDto dto){
+    public ResponseEntity<ProjectDto> addProject(@RequestBody @Valid ProjectDto dto){
         Project entity = Mapper.mapToEntity(dto);
         projectService.addProject(entity);
         return new ResponseEntity<>(Mapper.mapToDto(entity), HttpStatus.CREATED);
