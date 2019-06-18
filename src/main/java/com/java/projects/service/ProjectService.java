@@ -57,6 +57,10 @@ public class ProjectService {
         return project;
     }
 
+    public List<Project> getAll() {
+        return projectRepository.findAll();
+    }
+
     private List<Category> fetchCategories(Project project) {
         return project.getCategories()
                 .stream()

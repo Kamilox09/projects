@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -49,5 +51,19 @@ public class ProjectController {
         Project project = projectService.makeReservation(id,
                 userService.getUserByUsernameIfNotMadeReservation(principal.getName()));
         return new ResponseEntity<>(Mapper.mapToDto(project), HttpStatus.OK);
+    }
+
+    @GetMapping("/project/all")
+    public ResponseEntity<List<ProjectDto>> getAllProjects(){
+        List<Project> projects = projectService.getAll();
+        return new ResponseEntity<>(projects
+                .stream()
+                .map(Mapper::mapToDto)
+        .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test";
     }
 }
