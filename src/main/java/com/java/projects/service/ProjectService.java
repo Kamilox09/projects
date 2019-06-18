@@ -2,6 +2,7 @@ package com.java.projects.service;
 
 import com.java.projects.model.Category;
 import com.java.projects.model.Project;
+import com.java.projects.model.User;
 import com.java.projects.repository.ProjectRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,11 +16,14 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final CategoryService categoryService;
+    private final UserService userService;
 
     public ProjectService(ProjectRepository projectRepository,
-                          CategoryService categoryService){
+                          CategoryService categoryService,
+                          UserService userService){
         this.projectRepository = projectRepository;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
 
     public void addProject(Project project){
@@ -36,6 +40,21 @@ public class ProjectService {
 
     public Page<Project> getPageOfProjects(Pageable pageable){
         return projectRepository.findAll(pageable);
+    }
+
+    public Project getById(Long id) throws Exception {
+        return projectRepository.findById(id)
+                .orElseThrow(()-> new Exception("Nie znaleziono projektu o id: "+id));
+    }
+
+    public Project makeReservation(Long projectId, User user) throws Exception{
+        Project project = getById(projectId);
+        if(project.getAvailableReservations()==0)
+            throw new Exception("Projekt zarezerwowany!");
+        project.setAvailableReservations(project.getAvailableReservations()-1);
+        user.setProject(project);
+        userService.saveUser(user);
+        return project;
     }
 
     private List<Category> fetchCategories(Project project) {

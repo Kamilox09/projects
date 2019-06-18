@@ -26,4 +26,15 @@ public class UserService {
         user.setRole(roleService.getUserRole());
         userRepository.save(user);
     }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    public User getUserByUsernameIfNotMadeReservation(String username) throws Exception {
+        User user = findByUsername(username);
+        if(user.getProject()!=null)
+            throw new Exception("Użytkownik zarezerwował już projekt");
+        return user;
+    }
 }
