@@ -20,6 +20,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/api/project")
                 .hasRole("ADMIN")
+                .antMatchers("/api/users")
+                .hasRole("ADMIN")
                     .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

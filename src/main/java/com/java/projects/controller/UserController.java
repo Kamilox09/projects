@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -39,5 +41,13 @@ public class UserController {
     public ResponseEntity<UserDto> getCurrentLoggedUser(Principal principal){
         User user = userService.findByUsername(principal.getName());
         return new ResponseEntity<>(Mapper.maptoDto(user), HttpStatus.OK);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDto>> getUsersWithProjects() {
+        return new ResponseEntity<>(userService.getUsersWithProjects()
+        .stream()
+        .map(Mapper::maptoDto)
+        .collect(Collectors.toList()), HttpStatus.OK);
     }
 }

@@ -4,6 +4,8 @@ import com.java.projects.model.User;
 import com.java.projects.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -36,5 +38,9 @@ public class UserService {
         if(user.getProject()!=null)
             throw new Exception("Użytkownik zarezerwował już projekt");
         return user;
+    }
+
+    public List<User> getUsersWithProjects() {
+        return userRepository.findAllByProjectIsNotNull();
     }
 }

@@ -8,6 +8,8 @@ public class UserDto {
 
     private String role;
 
+    private ProjectDto project;
+
     public Long getId() {
         return id;
     }
@@ -30,5 +32,13 @@ public class UserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public ProjectDto getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectDto project) {
+        this.project = project;
     }
 }

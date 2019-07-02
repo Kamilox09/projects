@@ -68,6 +68,11 @@ public class Mapper {
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
         dto.setRole(entity.getRole().getName());
+        if(entity.getProject()!=null) {
+            dto.setProject(Mapper.mapToDto(entity.getProject()));
+        } else {
+            dto.setProject(new ProjectDto());
+        }
 
         return dto;
     }
