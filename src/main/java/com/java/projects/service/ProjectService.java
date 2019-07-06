@@ -47,6 +47,14 @@ public class ProjectService {
                 .orElseThrow(()-> new Exception("Nie znaleziono projektu o id: "+id));
     }
 
+    public void deleteProject(Long id) throws Exception {
+        Project project = this.getById(id);
+        if(project.getAvailableReservations() != 5) {
+            throw new Exception("Projekt jest już zarezerwowany");
+        }
+        projectRepository.deleteById(id);
+    }
+
     public Project makeReservation(Long projectId, User user) throws Exception{
         Project project = getById(projectId);
         if(project.getAvailableReservations()==0)

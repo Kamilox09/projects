@@ -62,6 +62,12 @@ public class ProjectController {
         .collect(Collectors.toList()), HttpStatus.OK);
     }
 
+    @DeleteMapping ("/project/delete/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) throws Exception{
+        projectService.deleteProject(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/test")
     public String test() {
         return "test";
